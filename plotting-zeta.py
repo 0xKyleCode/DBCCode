@@ -5,7 +5,6 @@ Make figures for paper
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import csv
 import seaborn as sns
 sns.set(font_scale=1.2)
 sns.set_style("whitegrid")
@@ -13,32 +12,6 @@ sns.set_style('ticks')
 flatui = ["#9b59b6", "#3498db", "#95a5a6", "#e74c3c", "#34495e", "#2ecc71"]
 
 sns.set_palette(sns.hls_palette(8, l=.3, s=.8))
-
-
-def openCSV(file):
-    """
-    opens and returns a csv file contents
-    """
-    firstColumn = []
-    secondColumn = []
-    with open(file, 'rt') as csvFile:
-        reader = csv.reader(csvFile)
-        for row in reader:
-            if(len(row) != 0 and len(row) != 1):
-                if(is_number(row[0])):
-                    if(is_number(row[1])):
-                        firstColumn.append(float(row[0]))
-                        secondColumn.append(float(row[1]))
-
-    return [firstColumn, secondColumn]
-
-
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
 
 
 def smoothData(data):

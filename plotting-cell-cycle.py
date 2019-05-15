@@ -9,6 +9,7 @@ import scipy
 from scipy.signal import savgol_filter
 from scipy.signal import find_peaks_cwt
 from scipy.signal import boxcar
+
 sns.set(font_scale=1.2)
 sns.set_style("white")
 colors = ["#95a5a6", "amber"]
