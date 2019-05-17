@@ -39,75 +39,33 @@ def is_number(s):
         return False
 
 
-def plotData(data1, data2, data3, data4, data5, data6):
+def plotData(*arg):
     """
     plots data
     """
     fig, ax = plt.subplots(figsize=(8, 6))
-    """    plt.bar(data1[0][:-1], data1[1][:-1], width=np.diff(data1[0]),
-            ec='none', align='edge', label="15 nm GNPs", alpha=0.5)
-    plt.xscale("log")
-    plt.title("Size Distrubution")
-    plt.xlabel('Paritlcle Diameter [nm]')
-    plt.ylabel('Relative Frequency - Intensity Weighted [%]')
-    plt.legend()
+    for item in arg:
+        data = item[0]
+        name = item[1]
+        ax.bar(data[0][:-1], data[1][:-1], width=np.diff(data[0]),
+               ec='none', align='edge', label=name, alpha=0.5)
+        ymax = max(data[1][:-1])
+        xpos = data[1][:-1].index(ymax)
+        xmax = data[0][:-1][xpos]
 
-    plt.bar(data2[0][:-1], data2[1][:-1], width=np.diff(data2[0]),
-            ec='none', align='edge', label="15 nm+PEG", alpha=0.5)
-    plt.xscale("log")
-    plt.title("Size Distrubution")
-    plt.xlabel('Paritlcle Diameter [nm]')
-    plt.ylabel('Relative Frequency - Intensity Weighted [%]')
-    plt.legend()
-    """
-    ax.bar(data3[0][:-1], data3[1][:-1], width=np.diff(data3[0]),
-           ec='none', align='edge', label="15 nm+PEG+RGD", alpha=0.5)
-    ymax = max(data3[1][:-1])
-    xpos = data3[1][:-1].index(ymax)
-    xmax = data3[0][:-1][xpos]
-
-    ax.annotate('{:.2f} nm'.format(xmax), xy=(
-        xmax, ymax), xytext=(xmax-8, ymax+.1))
-
-    """   plt.bar(data4[0][:-1], data4[1][:-1], width=np.diff(data1[0]),
-            ec='none', align='edge', label="50 nm GNPs", alpha=0.5)
-    plt.xscale("log")
-    plt.title("Size Distrubution")
-    plt.xlabel('Paritlcle Diameter [nm]')
-    plt.ylabel('Relative Frequency - Intensity Weighted [%]')
-    plt.legend()
-
-    plt.bar(data5[0][:-1], data5[1][:-1], width=np.diff(data2[0]),
-            ec='none', align='edge', label="50 nm+PEG", alpha=0.5)
-    plt.xscale("log")
-    plt.title("Size Distrubution")
-    plt.xlabel('Paritlcle Diameter [nm]')
-    plt.ylabel('Relative Frequency - Intensity Weighted [%]')
-    plt.legend()"""
-
-    ax.bar(data6[0][:-1], data6[1][:-1], width=np.diff(data6[0]),
-           ec='none', align='edge', label="50 nm+PEG+RGD", alpha=0.5)
-    ymax = max(data6[1][:-1])
-    xpos = data6[1][:-1].index(ymax)
-    xmax = data6[0][:-1][xpos]
-
-    ax.annotate('{:.2f} nm'.format(xmax), xy=(
-        xmax, ymax), xytext=(xmax-10, ymax+.1))
+        ax.annotate('{:.2f} nm'.format(xmax), xy=(
+            xmax, ymax), xytext=(xmax-8, ymax+.1))
 
     ax.set_xscale("log")
     ax.set_xlabel('Particle Diameter [nm]')
     ax.set_ylabel('Relative Frequency - Intensity Weighted [%]')
     ax.legend()
-
     ax.set_xlim((0, 1000))
     plt.show()
 
 
 if __name__ == '__main__':
-    data1 = openCSV('15-DLS.csv')
-    data2 = openCSV('15+PEG-DLS.csv')
-    data3 = openCSV('15+PEG+RGD-DLS.csv')
-    data4 = openCSV('50-DLS.csv')
-    data5 = openCSV('50+PEG-DLS.csv')
-    data6 = openCSV('50+PEG+RGD-DLS.csv')
-    plotData(data1, data2, data3, data4, data5, data6)
+    data1 = [openCSV('test_files/DLS/15-DLS.csv'), "15 nm"]
+    data2 = [openCSV('test_files/DLS/15+PEG-DLS.csv'), "15 nm+PEG"]
+    data3 = [openCSV('test_files/DLS/15+PEG+RGD-DLS.csv'), "15 nm+PEG+RGD"]
+    plotData(data1, data2, data3)
